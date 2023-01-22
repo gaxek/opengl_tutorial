@@ -1,13 +1,9 @@
-import java.nio.FloatBuffer; //The buffers that the Vertex data is ultimately stored in
+import org.lwjgl.BufferUtils;
+
+import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
-import java.util.List; //List and ArrayLists are containers for storing data, in this case the VBO/VAO IDs
-
-import org.lwjgl.BufferUtils; //For creating the FloatBuffer
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL15;
-import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GL30;
+import java.util.List;
 
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.glVertexAttribPointer;

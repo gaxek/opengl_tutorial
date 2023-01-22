@@ -1,19 +1,21 @@
+import org.lwjgl.stb.STBImage;
+import org.lwjgl.system.MemoryStack;
+
 import java.io.File;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.HashMap;
+
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL30.*;
-import org.lwjgl.stb.STBImage;
-import org.lwjgl.system.MemoryStack;
+import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 
 public class Texture {
     private static  HashMap<String, Integer> idMap = new HashMap<String, Integer>();
 
     public static int loadTexture(String texture){
         String resourceName = texture;
-        if(idMap.containsKey(texture)){
+        if(idMap.containsKey("res/" + resourceName)){
             return idMap.get("res/" + resourceName);
         }
         int width;
