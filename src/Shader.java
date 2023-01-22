@@ -15,7 +15,7 @@ public abstract class Shader {
     private int programID;
     private int vertexID;
     private int fragmentID;
-    private FloatBuffer matrix = BufferUtils.createFloatBuffer(16);
+    private FloatBuffer matrix;
 
     public Shader(String Vert, String Frag){
         vertexID = loadShader(Vert, GL_VERTEX_SHADER);
@@ -66,8 +66,8 @@ public abstract class Shader {
     }
 
     protected void loadMatrix(int location, Matrix4f value){
+        this.matrix = BufferUtils.createFloatBuffer(16);
         value.get(matrix);
-        matrix.flip();
         glUniformMatrix4fv(location, false, matrix);
     }
 

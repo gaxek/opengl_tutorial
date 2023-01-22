@@ -14,6 +14,7 @@ public class Boot {
         glEnable(GL_DEPTH_TEST);
         glClearColor(0.00f, 0.60f, 0.10f, 0.0f);
 
+        /*
         float[] vertices = {
                 -0.5f, 0.5f, -0.5f,      //0 - l o v
                 0.5f, 0.5f, -0.5f,       //1 - r o v
@@ -45,6 +46,20 @@ public class Boot {
                 //rückseite
                 4, 6, 7, 7, 4, 5
         };
+
+         */
+
+        float[] vertices = {-50f,-50f,0f,
+                50f, -50f, 0f,
+                -50f,50f,0f,
+                50f,50f,0f};
+        int[] indices = {0,1,2,
+                1,2,3};
+
+        float[] uvs = {0f,1f,
+                1f, 1f,
+                0f,0f,
+                1f,0f};
 
         Mesh mesh = MeshLoader.createMesh(vertices, uvs, indices);
         mesh.addTexture("kowl.png");

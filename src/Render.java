@@ -14,6 +14,7 @@ public class Render {
 
     public void render(Mesh mesh){
         shader.start();
+        shader.setProjection(Boot.window.getProjectionMatrix());
         glBindVertexArray(mesh.getVaoID());
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);

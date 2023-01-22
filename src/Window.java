@@ -1,5 +1,7 @@
+import org.joml.Matrix4f;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
@@ -7,13 +9,21 @@ import java.nio.IntBuffer;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.glViewport;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
     public long window;
+    public int width;
+    public int height;
+    public int aspectRatio;
+    private GLFWWindowSizeCallback windowSize;
 
     public Window(int width, int height, String title){
+        this.width = width;
+        this.height = height;
+        this.aspectRatio = width/height;
         init(width, height, title);
     }
 
@@ -54,6 +64,16 @@ public class Window {
             glfwShowWindow(window);
         }
 
+        glfwSetWindowSizeCallback(window, windowSize = new GLFWWindowSizeCallback() {
+            @Override
+            public void invoke(long window, int width, int height) {
+                Boot.window.height = height;
+                Boot.window.width = width;
+                Boot.window.aspectRatio = width/height;
+                glViewport(0, 0, Boot.window.width, Boot.window.height);
+            }
+        });
+
         GL.createCapabilities();
     }
 
@@ -71,5 +91,10 @@ public class Window {
         glfwDestroyWindow(window);
         glfwTerminate();
         glfwSetErrorCallback(null).free();
+    }
+
+    public Matrix4f getProjectionMatrix(){
+        Matrix4f matrix = new Matrix4f().ortho2D(-this.width / 2, this.width / 2, -this.height / 2, this.height / 2);
+        return matrix;
     }
 }
