@@ -2,7 +2,6 @@ import org.lwjgl.stb.STBImage;
 import org.lwjgl.system.MemoryStack;
 
 import java.io.File;
-import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.HashMap;
@@ -13,8 +12,7 @@ import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 public class Texture {
     private static  HashMap<String, Integer> idMap = new HashMap<String, Integer>();
 
-    public static int loadTexture(String texture){
-        String resourceName = texture;
+    public static int loadTexture(String resourceName){
         if(idMap.containsKey("res/" + resourceName)){
             return idMap.get("res/" + resourceName);
         }
@@ -25,7 +23,6 @@ public class Texture {
             IntBuffer w = stack.mallocInt(1);
             IntBuffer h = stack.mallocInt(1);
             IntBuffer channels = stack.mallocInt(1);
-            URL url = Texture.class.getResource("res/" +  resourceName);
             File file = new File("res/" + resourceName);
             String filePath = file.getAbsolutePath();
             System.out.println(filePath);

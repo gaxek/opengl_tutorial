@@ -61,8 +61,7 @@ public class Boot {
                 0f,0f,
                 1f,0f};
 
-        Mesh mesh = MeshLoader.createMesh(vertices, uvs, indices);
-        mesh.addTexture("kowl.png");
+        Mesh mesh = MeshLoader.createMesh(vertices, uvs, indices).addTexture("kowl.png");
         Render render = new Render();
 
         while(!window.shouldClose()) {

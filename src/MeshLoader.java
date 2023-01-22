@@ -11,8 +11,8 @@ import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class MeshLoader {
-    private static List<Integer> vaos = new ArrayList<Integer>();
-    private static List<Integer> vbos = new ArrayList<Integer>();
+    private static List<Integer> vaos = new ArrayList<>();
+    private static List<Integer> vbos = new ArrayList<>();
 
     private static FloatBuffer createFloatBuffer(float[] data){
         FloatBuffer buffer = BufferUtils.createFloatBuffer(data.length);
@@ -28,7 +28,7 @@ public class MeshLoader {
         return buffer;
     }
 
-    private static void storeData(int attribute, int dimensions, float data[]){
+    private static void storeData(int attribute, int dimensions, float[] data){
         int vbo = glGenBuffers();
         vbos.add(vbo);
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
