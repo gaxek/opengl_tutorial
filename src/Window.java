@@ -94,6 +94,6 @@ public class Window {
     }
 
     public Matrix4f getProjectionMatrix(){
-        return new Matrix4f().ortho2D((float) (-this.width / 2), (float) (this.width / 2), (float) (-this.height / 2), (float) (this.height / 2));
+        return new Matrix4f().ortho2D((float) (-this.width / 300), (float) (this.width / 300), (float) (-this.height / 300), (float) (this.height / 300));
     }
 }
