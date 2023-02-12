@@ -15,15 +15,15 @@ public class ObjectLoader {
         while((line = reader.readLine()) != null) {  //line = reader.readLine ist kein Vergleich, sondern eine Zuweisung. Die wird scheinbar null wenn sie fehlschlaegt
             if(line.startsWith("v ")) {
                 float x = Float.valueOf(line.split(" ")[1]); // line.split splittet die line in ein Array, jedes Mal da wo das Leerzeichen vorkommt. Der Index 1 ist dann das zweite Feld, logisch
-                float y = Float.valueOf(line.split(" ")[3]); // y und z sind scheinbar geswitched und nicht wie angenommen :/
-                float z = Float.valueOf(line.split(" ")[2]);
+                float y = Float.valueOf(line.split(" ")[2]); // y und z sind scheinbar geswitched und nicht wie angenommen :/
+                float z = Float.valueOf(line.split(" ")[3]);
                 m.vertices.add(new Vector3f(x,y,z));
                 //System.out.println("Vertex loaded");
             }
             else if(line.startsWith("vn ")) {
                 float x = Float.valueOf(line.split(" ")[1]);
-                float y = Float.valueOf(line.split(" ")[3]);
-                float z = Float.valueOf(line.split(" ")[2]);
+                float y = Float.valueOf(line.split(" ")[2]);
+                float z = Float.valueOf(line.split(" ")[3]);
                 m.normals.add(new Vector3f(x,y,z));
                 //System.out.println("Normal loaded");
             }

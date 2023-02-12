@@ -28,6 +28,7 @@ public class Texture {
             File file = new File(path + resourceName);
             String filePath = file.getAbsolutePath();
             System.out.println(filePath);
+            STBImage.stbi_set_flip_vertically_on_load(true);
             buffer = STBImage.stbi_load(filePath, w, h, channels, 4);
             if(buffer == null){
                 throw new Exception("Can't load file " + resourceName + " "+ STBImage.stbi_failure_reason());

@@ -2,6 +2,7 @@ import org.joml.Matrix4f;
 
 public class ShaderTexture extends Shader{
     private int locationProjection;
+    private int locationView;
 
     public ShaderTexture(){
         super("vertexshader.vert", "fragmentshader.frag");
@@ -17,8 +18,13 @@ public class ShaderTexture extends Shader{
         this.loadMatrix(locationProjection, mat);
     }
 
+    public void setView(Matrix4f mat){
+        this.loadMatrix(locationView, mat);
+    }
+
     @Override
     protected void getAllUniformLocations(){
         this.locationProjection = this.getUniformLocation("projection");
+        this.locationView = this.getUniformLocation("view");
     }
 }
