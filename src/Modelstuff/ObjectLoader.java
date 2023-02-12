@@ -57,9 +57,12 @@ public class ObjectLoader {
                 BufferedReader readermtl = new BufferedReader(new FileReader(path + line.split(" ")[1]));
                 String linemtl;
                 while((linemtl = readermtl.readLine()) != null) {
-                    if(linemtl.startsWith("")){}
-                    break;
+                    if(linemtl.startsWith("map_Kd ")){
+                        String[] texturepath = linemtl.split("/");
+                        m.texturemap = texturepath[texturepath.length-1];
+                    }
                 }
+                readermtl.close();
             }
         }
         reader.close();

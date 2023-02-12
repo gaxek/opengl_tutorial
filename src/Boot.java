@@ -105,10 +105,10 @@ public class Boot {
             float[]verticesFixed = new float[m.textureCoordinates.size()*3];
             count = 0;
             for(Vector3f vertex: m.textureCoordinates) {
-                verticesFixed[count] = m.vertices.get((int)m.textureCoordinates.get(count).z).x;
-                verticesFixed[count+1] = m.vertices.get((int)m.textureCoordinates.get(count).z).y;
-                verticesFixed[count+2] = m.vertices.get((int)m.textureCoordinates.get(count).z).z;
-                count = count +3;
+                verticesFixed[(count*3)] = m.vertices.get((int)(m.textureCoordinates.get(count).z)).x;
+                verticesFixed[(count*3)+1] = m.vertices.get((int)(m.textureCoordinates.get(count).z)).y;
+                verticesFixed[(count*3)+2] = m.vertices.get((int)(m.textureCoordinates.get(count).z)).z;
+                count = count +1;
 
                 //java.lang.System.out.println(count);
 
@@ -126,7 +126,7 @@ public class Boot {
                     1f, 1f,
                     0f,0f,
                     1f,0f};
-            Mesh mesh = MeshLoader.createMesh(verticesFixed, uvs, indices).addTexture("plywood_diff_4k_blue.png");
+            Mesh mesh = MeshLoader.createMesh(verticesFixed, uvs, indices).addTexture(m.texturemap);
             meshes.add(mesh);
 
         }
