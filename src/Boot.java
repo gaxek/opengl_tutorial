@@ -103,13 +103,16 @@ public class Boot {
             }
 
             float[]verticesFixed = new float[m.textureCoordinates.size()*3];
+            float[] uvs = new float[m.textureCoordinates.size()*2];
             count = 0;
-            System.out.println(m.textureCoordinates.size());
+            //System.out.println(m.textureCoordinates.size());
             for(Vector3f vertex: m.textureCoordinates) {
-                System.out.println((m.textureCoordinates.get(count)));
+                //System.out.println((m.textureCoordinates.get(count)));
                 verticesFixed[(count*3)] = m.vertices.get((int)(m.textureCoordinates.get(count).z)).x;
                 verticesFixed[(count*3)+1] = m.vertices.get((int)(m.textureCoordinates.get(count).z)).y;
                 verticesFixed[(count*3)+2] = m.vertices.get((int)(m.textureCoordinates.get(count).z)).z;
+                uvs[(count*2)] = m.textureCoordinates.get(count).x;
+                uvs[(count*2)+1] = m.textureCoordinates.get(count).y;
                 count = count +1;
 
                 //java.lang.System.out.println(count);
@@ -124,10 +127,7 @@ public class Boot {
                 count = count + 3;
                 facecount = facecount + 1;
             }
-            float[] uvs = {0f,1f,
-                    1f, 1f,
-                    0f,0f,
-                    1f,0f};
+
             Mesh mesh = MeshLoader.createMesh(verticesFixed, uvs, indices).addTexture(m.texturemap);
             meshes.add(mesh);
 
