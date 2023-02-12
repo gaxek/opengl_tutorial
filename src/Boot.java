@@ -28,9 +28,22 @@ public class Boot {
         //Mesh mesh = MeshLoader.createMesh(vertices, uvs, indices).addTexture("kowl.png");
         Render render = new Render();
 
-        String[] sources = new String[1]; //Hier kommen dann die Sources der verschiedenen Models rein
-        sources[0] = "/home/gaxek/Documents/Uni/blender/grafik-project/blender_files/spielbrett.obj";
-        //sources[1] = "src/pointpoint2.obj";
+        String path = "res/models/";
+        File folder = new File(path);
+        File[] listOfFiles = folder.listFiles();
+
+        String[] sources = new String[76]; //Hier kommen dann die Sources der verschiedenen Models rein
+        int c = 0;
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].isFile() && listOfFiles[i].getName().contains(".obj")) {
+                //System.out.println("File " + listOfFiles[i].getName());
+                sources[c++] = path + listOfFiles[i].getName();
+            }
+        }
+        //System.out.println(c);
+
+        //sources[0] = "/home/gaxek/Documents/Uni/blender/grafik-project/blender_files/hexagon2.obj";
+        //sources[1] = "/home/gaxek/Documents/Uni/blender/grafik-project/blender_files/stadt_wood.obj";
         List<Model> allModels = loadAllModels(sources); //Hier wird dann Sources in die Methode loadAllModels reingesteckt
         java.lang.System.out.println("ModelList created");
         List<Mesh> meshes = makedrawList(allModels); //Hier wird dann allModels in die methode makedrawList rengesteckt
@@ -43,8 +56,8 @@ public class Boot {
 
             for(Mesh mesh : meshes) {
                 render.render(mesh);
-                window.update();
             }
+            window.update();
         }
     }
 
@@ -53,10 +66,11 @@ public class Boot {
         for(String source : models) {
             Model m = null;
             try {
+                //System.out.println(source);
                 m = ObjectLoader.loadModel(new File(source));  //File
-                java.lang.System.out.println("Model loaded");
+                //java.lang.System.out.println("Model loaded");
                 modelListe.add(m);
-                java.lang.System.out.println("Model added");
+                //java.lang.System.out.println("Model added");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 //Display.destroy();
@@ -71,10 +85,10 @@ public class Boot {
     }
     public List<Mesh> makedrawList(List<Model> models) { //hoffentlich muss das nur 1x aufgerufen werden? ich versuchs vor die Schleife zu tun
         List<Mesh> meshes = new ArrayList<Mesh>();
-        java.lang.System.out.println("MeshList instantiated");
+        //java.lang.System.out.println("MeshList instantiated");
 
         for (Model m : models) {
-            java.lang.System.out.println("in for loop");//int count = 0;
+            //java.lang.System.out.println("in for loop");//int count = 0;
 
             float[] vertices = new float[m.vertices.size()*3];
             int[] indices = new int[m.faces.size()*3];
@@ -101,11 +115,11 @@ public class Boot {
                     1f, 1f,
                     0f,0f,
                     1f,0f};
-            Mesh mesh = MeshLoader.createMesh(vertices, uvs, indices);
+            Mesh mesh = MeshLoader.createMesh(vertices, uvs, indices).addTexture("plywood_diff_4k_blue.png");
             meshes.add(mesh);
 
         }
-        java.lang.System.out.println("aus for loop raus");
+        //java.lang.System.out.println("aus for loop raus");
         return meshes;
     }
     public static void main(String[] args) {

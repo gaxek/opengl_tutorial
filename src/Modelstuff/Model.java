@@ -14,5 +14,4 @@ public class Model {
     public List<Face> faces = new ArrayList<Face>();
     public List<Vector3f> texture = new ArrayList<Vector3f>();
     public Model(){}
-
 }

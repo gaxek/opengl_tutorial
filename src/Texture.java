@@ -12,9 +12,11 @@ import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 public class Texture {
     private static  HashMap<String, Integer> idMap = new HashMap<String, Integer>();
 
+    private static String path = "res/textures/";
+
     public static int loadTexture(String resourceName){
-        if(idMap.containsKey("res/" + resourceName)){
-            return idMap.get("res/" + resourceName);
+        if(idMap.containsKey(resourceName)){
+            return idMap.get(resourceName);
         }
         int width;
         int height;
@@ -23,7 +25,7 @@ public class Texture {
             IntBuffer w = stack.mallocInt(1);
             IntBuffer h = stack.mallocInt(1);
             IntBuffer channels = stack.mallocInt(1);
-            File file = new File("res/" + resourceName);
+            File file = new File(path + resourceName);
             String filePath = file.getAbsolutePath();
             System.out.println(filePath);
             buffer = STBImage.stbi_load(filePath, w, h, channels, 4);
