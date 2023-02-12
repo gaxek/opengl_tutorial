@@ -5,6 +5,7 @@ import org.joml.Vector3f;
 import java.io.*;
 
 public class ObjectLoader {
+    private static String path = "res/models/";
     public static Model loadModel(File f) throws FileNotFoundException, IOException {
         BufferedReader reader = new BufferedReader(new FileReader(f));
         Model m = new Model();
@@ -36,11 +37,11 @@ public class ObjectLoader {
                         Float.valueOf(line.split(" ")[2].split("/")[1]),
                         Float.valueOf(line.split(" ")[3].split("/")[1]));
 
-                System.out.println("["+ (c) + "]" + " Before: " + m.textureCoordinates);
+                //System.out.println("["+ (c) + "]" + " Before: " + m.textureCoordinates);
                 m.textureCoordinates.get((int)textureIndices.x - 1).add(new Vector3f(0f,0f,vertexIndices.x));
                 m.textureCoordinates.get((int)textureIndices.y - 1).add(new Vector3f(0f,0f,vertexIndices.y));
                 m.textureCoordinates.get((int)textureIndices.z - 1).add(new Vector3f(0f,0f,vertexIndices.z));
-                System.out.println("["+ (c++) + "]"  + " After:  " + m.textureCoordinates);
+                //System.out.println("["+ (c++) + "]"  + " After:  " + m.textureCoordinates);
 
                 m.faces.add(new Face(vertexIndices, normalIndices));
                 m.texture.add(textureIndices);  //wird in Model gespeichert, wird dann wahrscheinlich in Texture integriert
@@ -51,6 +52,14 @@ public class ObjectLoader {
                 float y = Float.valueOf(line.split(" ")[2]);
                 m.textureCoordinates.add(new Vector3f(x,y,0f));
                 //System.out.println("UV loaded");
+            }
+            else if(line.startsWith("mtllib ")){
+                BufferedReader readermtl = new BufferedReader(new FileReader(path + line.split(" ")[1]));
+                String linemtl;
+                while((linemtl = readermtl.readLine()) != null) {
+                    if(linemtl.startsWith("")){}
+                    break;
+                }
             }
         }
         reader.close();

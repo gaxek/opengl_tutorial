@@ -89,7 +89,6 @@ public class Boot {
 
         for (Model m : models) {
             //java.lang.System.out.println("in for loop");//int count = 0;
-
             float[] vertices = new float[m.vertices.size()*3];
             int[] indices = new int[m.faces.size()*3];
             int count = 0;
@@ -102,20 +101,32 @@ public class Boot {
                 //java.lang.System.out.println(count);
 
             }
+
+            float[]verticesFixed = new float[m.textureCoordinates.size()*3];
+            count = 0;
+            for(Vector3f vertex: m.textureCoordinates) {
+                verticesFixed[count] = m.vertices.get((int)m.textureCoordinates.get(count).z).x;
+                verticesFixed[count+1] = m.vertices.get((int)m.textureCoordinates.get(count).z).y;
+                verticesFixed[count+2] = m.vertices.get((int)m.textureCoordinates.get(count).z).z;
+                count = count +3;
+
+                //java.lang.System.out.println(count);
+
+            }
             int facecount = 0;
             count = 0;
-            for(Face face: m.faces) {
-                indices[count] =(int) m.faces.get(facecount).vertex.x;
-                indices[count+1] =(int) m.faces.get(facecount).vertex.y;
-                indices[count+2] =(int) m.faces.get(facecount).vertex.z;
-                count = count +3;
-                facecount = facecount+1;
+            for(Vector3f texture: m.texture) {
+                indices[count] = (int) m.texture.get(facecount).x-1;
+                indices[count + 1] = (int) m.texture.get(facecount).y-1;
+                indices[count + 2] = (int) m.texture.get(facecount).z-1;
+                count = count + 3;
+                facecount = facecount + 1;
             }
             float[] uvs = {0f,1f,
                     1f, 1f,
                     0f,0f,
                     1f,0f};
-            Mesh mesh = MeshLoader.createMesh(vertices, uvs, indices).addTexture("plywood_diff_4k_blue.png");
+            Mesh mesh = MeshLoader.createMesh(verticesFixed, uvs, indices).addTexture("plywood_diff_4k_blue.png");
             meshes.add(mesh);
 
         }
