@@ -40,7 +40,7 @@ public class Boot {
                 sources[c++] = path + listOfFiles[i].getName();
             }
         }
-        //System.out.println(c);
+        System.out.println(sources[0]);
 
         //sources[0] = "/home/gaxek/Documents/Uni/blender/grafik-project/blender_files/hexagon2.obj";
         //sources[1] = "/home/gaxek/Documents/Uni/blender/grafik-project/blender_files/stadt_wood.obj";
@@ -104,7 +104,9 @@ public class Boot {
 
             float[]verticesFixed = new float[m.textureCoordinates.size()*3];
             count = 0;
+            System.out.println(m.textureCoordinates.size());
             for(Vector3f vertex: m.textureCoordinates) {
+                System.out.println((m.textureCoordinates.get(count)));
                 verticesFixed[(count*3)] = m.vertices.get((int)(m.textureCoordinates.get(count).z)).x;
                 verticesFixed[(count*3)+1] = m.vertices.get((int)(m.textureCoordinates.get(count).z)).y;
                 verticesFixed[(count*3)+2] = m.vertices.get((int)(m.textureCoordinates.get(count).z)).z;
