@@ -47,18 +47,14 @@ public class ObjectLoader {
                 if(m.textureCoordinates.get((int)textureIndices.z - 1).z == 0) {
                     m.textureCoordinates.get((int)textureIndices.z - 1).add(new Vector3f(0f,0f,vertexIndices.z));
                 }
-                //System.out.println("["+ (c) + "]" + " Texture: " + textureIndices);
-                //System.out.println("["+ (c++) + "]" + " Face: " + vertexIndices + "/" + textureIndices + " | TC - " + m.textureCoordinates.get((int)textureIndices.x - 1) + " " +m.textureCoordinates.get((int)textureIndices.y - 1) + " " + m.textureCoordinates.get((int)textureIndices.z - 1));
 
                 m.faces.add(new Face(vertexIndices, normalIndices));
                 m.texture.add(textureIndices);  //wird in Model gespeichert, wird dann wahrscheinlich in Texture integriert
-                //System.out.println("Face loaded");
             }
             else if(line.startsWith("vt ")) {
                 float x = Float.valueOf(line.split(" ")[1]);
                 float y = Float.valueOf(line.split(" ")[2]);
                 m.textureCoordinates.add(new Vector3f(x,y,0f));
-                //System.out.println("UV loaded");
             }
             else if(line.startsWith("mtllib ")){
                 BufferedReader readermtl = new BufferedReader(new FileReader(path + line.split(" ")[1]));

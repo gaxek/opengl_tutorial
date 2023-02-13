@@ -23,9 +23,7 @@ public class Boot {
 
     public void loop(){
         glEnable(GL_DEPTH_TEST);
-        glClearColor(0.00f, 0.00f, 0.10f, 0.0f);
 
-        //Mesh mesh = MeshLoader.createMesh(vertices, uvs, indices).addTexture("kowl.png");
         Render render = new Render();
 
         String path = "res/models/";
@@ -36,25 +34,18 @@ public class Boot {
         int c = 0;
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].isFile() && listOfFiles[i].getName().contains(".obj")) {
-                //System.out.println("File " + listOfFiles[i].getName());
                 sources[c++] = path + listOfFiles[i].getName();
             }
         }
-        System.out.println(sources[0]);
 
-        //sources[0] = "/home/gaxek/Documents/Uni/blender/grafik-project/blender_files/hexagon2.obj";
-        //sources[1] = "/home/gaxek/Documents/Uni/blender/grafik-project/blender_files/stadt_wood.obj";
         List<Model> allModels = loadAllModels(sources); //Hier wird dann Sources in die Methode loadAllModels reingesteckt
-        java.lang.System.out.println("ModelList created");
-        List<Mesh> meshes = makedrawList(allModels); //Hier wird dann allModels in die methode makedrawList rengesteckt
-        //java.lang.System.out.println(meshes.get(0).getVertexCount());
-        java.lang.System.out.println("MeshList created");
+        List<Mesh> meshes = makedrawList(allModels); //Hier wird dann allModels in die methode makedrawList reingesteckt
 
         while(!window.shouldClose()) {
 
             render.cleanup();
 
-            for(Mesh mesh : meshes) {
+            for (Mesh mesh : meshes) {
                 render.render(mesh);
             }
             window.update();
@@ -66,29 +57,22 @@ public class Boot {
         for(String source : models) {
             Model m = null;
             try {
-                //System.out.println(source);
-                m = ObjectLoader.loadModel(new File(source));  //File
-                //java.lang.System.out.println("Model loaded");
+                m = ObjectLoader.loadModel(new File(source));
                 modelListe.add(m);
-                //java.lang.System.out.println("Model added");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-                //Display.destroy();
                 System.exit(1);
             } catch (IOException e) {
                 e.printStackTrace();
-                //Display.destroy();
                 System.exit(1);
             }
         }
         return modelListe;
     }
-    public List<Mesh> makedrawList(List<Model> models) { //hoffentlich muss das nur 1x aufgerufen werden? ich versuchs vor die Schleife zu tun
+    public List<Mesh> makedrawList(List<Model> models) {
         List<Mesh> meshes = new ArrayList<Mesh>();
-        //java.lang.System.out.println("MeshList instantiated");
 
         for (Model m : models) {
-            //java.lang.System.out.println("in for loop");//int count = 0;
             float[] vertices = new float[m.vertices.size()*3];
             int[] indices = new int[m.faces.size()*3];
             int count = 0;
@@ -97,26 +81,18 @@ public class Boot {
                 vertices[(count*3)+1] = vertex.y;
                 vertices[(count*3)+2] = vertex.z;
                 count = count +1;
-
-                //java.lang.System.out.println(count);
-
             }
 
             float[]verticesFixed = new float[m.textureCoordinates.size()*3];
             float[] uvs = new float[m.textureCoordinates.size()*2];
             count = 0;
-            //System.out.println(m.textureCoordinates.size());
             for(Vector3f vertex: m.textureCoordinates) {
-                //System.out.println((m.textureCoordinates.get(count)));
                 verticesFixed[(count*3)] = m.vertices.get((int)(m.textureCoordinates.get(count).z)).x;
                 verticesFixed[(count*3)+1] = m.vertices.get((int)(m.textureCoordinates.get(count).z)).y;
                 verticesFixed[(count*3)+2] = m.vertices.get((int)(m.textureCoordinates.get(count).z)).z;
                 uvs[(count*2)] = m.textureCoordinates.get(count).x;
                 uvs[(count*2)+1] = m.textureCoordinates.get(count).y;
                 count = count +1;
-
-                //java.lang.System.out.println(count);
-
             }
             int facecount = 0;
             count = 0;
@@ -132,7 +108,6 @@ public class Boot {
             meshes.add(mesh);
 
         }
-        //java.lang.System.out.println("aus for loop raus");
         return meshes;
     }
     public static void main(String[] args) {

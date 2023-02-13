@@ -27,7 +27,6 @@ public class Texture {
             IntBuffer channels = stack.mallocInt(1);
             File file = new File(path + resourceName);
             String filePath = file.getAbsolutePath();
-            System.out.println(filePath);
             STBImage.stbi_set_flip_vertically_on_load(true);
             buffer = STBImage.stbi_load(filePath, w, h, channels, 4);
             if(buffer == null){
@@ -35,9 +34,6 @@ public class Texture {
             }
             width = w.get();
             height = h.get();
-
-            System.out.println(width + "x" + height);
-
             int id = glGenTextures();
             idMap.put(resourceName, id);
             glBindTexture(GL_TEXTURE_2D, id);
