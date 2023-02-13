@@ -96,19 +96,13 @@ public class Window {
     }
 
     public Matrix4f getProjectionMatrix(){
-        return new Matrix4f().perspective((float) Math.toRadians(60.0f), (float) this.width/ this.height, 0.01f, 1000.0f);//ortho2D((float) (-this.width / 300), (float) (this.width / 300), (float) (-this.height / 300), (float) (this.height / 300));
+        return new Matrix4f().perspective((float) Math.toRadians(45), (float)width/height, 0.01f, 100.0f)
+                .lookAt(0.0f, 10.0f, 12.0f,
+                        0.0f, 0.0f, 0.0f,
+                        0.0f, 1.0f, 0.0f);
     }
 
-    public Matrix4f getViewMatrix(Camera camera){
-        Vector3f cameraPos = camera.getPosition();
-        Vector3f rotation = camera.getRotation();
-        Matrix4f viewMatrix = new Matrix4f();
-        viewMatrix.identity();
-        // First do the rotation so camera rotates over its position
-        viewMatrix.rotate((float)Math.toRadians(rotation.x), new Vector3f(1, 0, 0))
-                .rotate((float)Math.toRadians(rotation.y), new Vector3f(0, 1, 0));
-        // Then do the translation
-        viewMatrix.translate(-cameraPos.x, -cameraPos.y, -cameraPos.z);
-        return viewMatrix;
+    public Matrix4f getViewMatrix(){
+        return new Matrix4f().rotate(-1.570796f, new Vector3f(0, 1, 0));
     }
 }

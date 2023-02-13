@@ -7,7 +7,6 @@ import static org.lwjgl.opengl.GL30.glBindVertexArray;
 
 public class Render {
     ShaderTexture shader = new ShaderTexture();
-    Camera camera = new Camera();
 
     public void cleanup(){
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -16,7 +15,7 @@ public class Render {
     public void render(Mesh mesh){
         shader.start();
         shader.setProjection(Boot.window.getProjectionMatrix());
-        shader.setView(Boot.window.getViewMatrix(camera));
+        shader.setView(Boot.window.getViewMatrix());
         glBindVertexArray(mesh.getVaoID());
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);

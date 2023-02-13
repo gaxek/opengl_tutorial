@@ -23,7 +23,7 @@ public class Boot {
 
     public void loop(){
         glEnable(GL_DEPTH_TEST);
-        glClearColor(0.00f, 0.60f, 0.10f, 0.0f);
+        glClearColor(0.00f, 0.00f, 0.10f, 0.0f);
 
         //Mesh mesh = MeshLoader.createMesh(vertices, uvs, indices).addTexture("kowl.png");
         Render render = new Render();
@@ -32,7 +32,7 @@ public class Boot {
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
 
-        String[] sources = new String[76]; //Hier kommen dann die Sources der verschiedenen Models rein
+        String[] sources = new String[77]; //Hier kommen dann die Sources der verschiedenen Models rein
         int c = 0;
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].isFile() && listOfFiles[i].getName().contains(".obj")) {
