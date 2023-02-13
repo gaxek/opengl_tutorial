@@ -1,10 +1,8 @@
-import Modelstuff.Face;
 import Modelstuff.Model;
 import Modelstuff.ObjectLoader;
 import org.joml.Vector3f;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +30,10 @@ public class Boot {
 
         String[] sources = new String[77]; //Hier kommen dann die Sources der verschiedenen Models rein
         int c = 0;
-        for (int i = 0; i < listOfFiles.length; i++) {
-            if (listOfFiles[i].isFile() && listOfFiles[i].getName().contains(".obj")) {
-                sources[c++] = path + listOfFiles[i].getName();
+        assert listOfFiles != null;
+        for (File listOfFile : listOfFiles) {
+            if (listOfFile.isFile() && listOfFile.getName().contains(".obj")) {
+                sources[c++] = path + listOfFile.getName();
             }
         }
 
@@ -53,15 +52,12 @@ public class Boot {
     }
 
     public List<Model> loadAllModels(String[] models) {
-        List<Model> modelListe = new ArrayList<Model>();
+        List<Model> modelListe = new ArrayList<>();
         for(String source : models) {
-            Model m = null;
+            Model m;
             try {
                 m = ObjectLoader.loadModel(new File(source));
                 modelListe.add(m);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                System.exit(1);
             } catch (IOException e) {
                 e.printStackTrace();
                 System.exit(1);
@@ -70,23 +66,15 @@ public class Boot {
         return modelListe;
     }
     public List<Mesh> makedrawList(List<Model> models) {
-        List<Mesh> meshes = new ArrayList<Mesh>();
+        List<Mesh> meshes = new ArrayList<>();
 
         for (Model m : models) {
-            float[] vertices = new float[m.vertices.size()*3];
             int[] indices = new int[m.faces.size()*3];
-            int count = 0;
-            for(Vector3f vertex: m.vertices) {
-                vertices[(count*3)] = vertex.x;
-                vertices[(count*3)+1] = vertex.y;
-                vertices[(count*3)+2] = vertex.z;
-                count = count +1;
-            }
 
             float[]verticesFixed = new float[m.textureCoordinates.size()*3];
             float[] uvs = new float[m.textureCoordinates.size()*2];
-            count = 0;
-            for(Vector3f vertex: m.textureCoordinates) {
+            int count = 0;
+            for(Vector3f ignored : m.textureCoordinates) {
                 verticesFixed[(count*3)] = m.vertices.get((int)(m.textureCoordinates.get(count).z)).x;
                 verticesFixed[(count*3)+1] = m.vertices.get((int)(m.textureCoordinates.get(count).z)).y;
                 verticesFixed[(count*3)+2] = m.vertices.get((int)(m.textureCoordinates.get(count).z)).z;
@@ -96,7 +84,7 @@ public class Boot {
             }
             int facecount = 0;
             count = 0;
-            for(Vector3f texture: m.texture) {
+            for(Vector3f ignored: m.texture) {
                 indices[count] = (int) m.texture.get(facecount).x-1;
                 indices[count + 1] = (int) m.texture.get(facecount).y-1;
                 indices[count + 2] = (int) m.texture.get(facecount).z-1;
