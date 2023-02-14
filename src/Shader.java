@@ -1,5 +1,4 @@
 import org.joml.Matrix4f;
-import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
@@ -47,22 +46,6 @@ public abstract class Shader {
 
     protected void bindAttribute(int attribute, String variableName){
         glBindAttribLocation(programID, attribute, variableName);
-    }
-
-    protected void loadFloat(int location, float value){
-        glUniform1f(location, value);
-    }
-
-    protected void loadVector(int location, Vector3f vector){
-        glUniform3f(location, vector.x, vector.y, vector.z);
-    }
-
-    protected void loadBoolean(int location, boolean value){
-        float tovec = 0;
-        if(value){
-            tovec = 1;
-        }
-        glUniform1f(location, tovec);
     }
 
     protected void loadMatrix(int location, Matrix4f value){

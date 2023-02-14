@@ -10,9 +10,9 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 
 public class Texture {
-    private static  HashMap<String, Integer> idMap = new HashMap<String, Integer>();
+    private static  HashMap<String, Integer> idMap = new HashMap<>();
 
-    private static String path = "res/textures/";
+    private static final String path = "res/textures/";
 
     public static int loadTexture(String resourceName){
         if(idMap.containsKey(resourceName)){

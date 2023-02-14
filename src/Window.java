@@ -1,4 +1,3 @@
-import org.joml.Matrix2d;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFWErrorCallback;
