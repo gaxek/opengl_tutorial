@@ -14,7 +14,7 @@ public class Boot {
     public static Window window;
 
     public void run(){
-        window = new Window(640, 480, "Cool Title");
+        window = new Window(640, 480, "Siedler von Catan");
         loop();
         window.terminate();
     }
